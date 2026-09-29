@@ -1,0 +1,179 @@
+const WHATSAPP_PHONE="525569082086";
+const DELIVERY_PRICE=25;
+const FREE_FRIES_MINIMUM=200;
+
+const products=[
+//Hamburguesas
+{id:1,name:"Hamburguesa Vegetariana",category:"hamburguesas",price:60,desc:"Platano, piña, champiñones, queso amarillo y queso suizo",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa Sencilla.png"},
+{id:2,name:"Hamburguesa Sencilla",category:"hamburguesas",price:65,desc:"Queso amarillo.",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa Sencilla.png"},
+{id:3,name:"Hamburguesa de Pollo",category:"hamburguesas",price:80,desc:"Hamburguesa de tender de pollo.",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa de pollo.png"},
+{id:4,name:"Hamburguesa Suiza",category:"hamburguesas",price:80,desc:"Hamburguesa con 3 quesos",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa Sencilla.png"},
+{id:5,name:"Hamburguesa BBQ",category:"hamburguesas",price:80,desc:"Carne con salsa BBQ y queso amarillo",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa BBQ.png"},
+{id:6,name:"Hamburguesa Caribeña",category:"hamburguesas",price:80,desc:"Jamón, queso suizo, champiñones y platano",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa Hawaiana.png"},
+{id:7,name:"Hamburguesa Hawaiana",category:"hamburguesas",price:80,desc:"Jamon, queso suizo, tocino y piña",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa Hawaiana.png"},
+{id:8,name:"Hamburguesa Tropical",category:"hamburguesas",price:80,desc:"Carne en salsa a elegir, queso suizo y aros de cebolla",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa Tropical.png",options:["BBQ","Tamarindo","Mango Habanero"]},
+{id:9,name:"Doriburger",category:"hamburguesas",price:80,desc:"Carne sabor doritos con queso amarillo.",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa Sencilla.png"},
+{id:10,name:"Hamburguesa de Pollo Bufalo",category:"hamburguesas",price:85,desc:"Hamburguesa de tender de pollo con salsa bufalo",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa de pollo.png"},
+{id:11,name:"Hamburguesa Especial",category:"hamburguesas",price:85,desc:"Jamon, queso amarillo, queso suizo, piña, tocino y salchicha",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa Especial.png"},
+{id:12,name:"Hamburguesa Criolla",category:"hamburguesas",price:85,desc:"Huevo estrellado, queso y aguacate.",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa Criolla.png"},
+{id:13,name:"Hamburguesa de Pollo Bufalo-Ranch",category:"hamburguesas",price:85,desc:"Hamburguesa de tender de pollo con salsa bufalo.",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa de pollo.png"},
+{id:14,name:"Hamburguesa de Pollo Jalapeño-Ranch",category:"hamburguesas",price:85,desc:"Hamburguesa de tender de pollo con salsa bufalo.",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa de pollo.png"},
+{id:15,name:"Burgeroni",category:"hamburguesas",price:85,desc:"Salsa de pizza, queso suizo y pepperoni",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Burgeroni.png"},
+{id:16,name:"Choriburger",category:"hamburguesas",price:85,desc:"longaniza con queso suizo",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa Sencilla.png"},
+{id:17,name:"Alamburger",category:"hamburguesas",price:95,desc:"Chuleta, tocino, pimientos y queso suizo",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa Hawaiana.png"},
+{id:18,name:"Hamburguesa de Camaron",category:"hamburguesas",price:100,desc:"Hamburguesa con camarones.",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa Sencilla.png"},
+{id:19,name:"Cheeseburger",category:"hamburguesas",price:110,desc:"Triple carne con 6 rebanadas de queso amarillo.",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Cheeseburger.png"},
+{id:20,name:"Hamburguesa Suprema",category:"hamburguesas",price:115,desc:"Doble carne, 3 quesos, jamon, tocino, piña y salchicha",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hamburguesa Especial.png"},
+//Hot Dogs
+{id:21,name:"Hot dog sencillo",category:"hot dogs",price:20,desc:"Salchicha",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hot Dogs.png"},
+{id:22,name:"Hot dog sencillo x3",category:"hot dogs",price:45,desc:"Salchicha.",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hot Dogs.png"},
+{id:23,name:"Hot dog especial",category:"hot dogs",price:25,desc:"Salchicha con tocino y queso.",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hot Dogs.png"},
+{id:24,name:"Hot dog especial x3",category:"hot dogs",price:60,desc:"Salchicha con tocino y queso",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hot Dogs.png"},
+{id:25,name:"Hot dog vegetariano",category:"hot dogs",price:25,desc:"Platano macho, champiñones, piña y queso",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hot Dogs.png"},
+{id:26,name:"Hot dog vegetariano x3",category:"hot dogs",price:60,desc:"Platano macho, champiñones, piña y queso",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hot Dogs.png"},
+{id:27,name:"Hot dog de pollo",category:"hot dogs",price:25,desc:"Hot dog con tender de pollo",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hot Dogs.png"},
+{id:28,name:"Hot dog de pollo x3",category:"hot dogs",price:60,desc:"Hot dog con tender de pollo",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hot Dogs.png"},
+{id:29,name:"Choridog",category:"hot dogs",price:25,desc:"Salchicha con longaniz Y queso suizo.",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hot Dogs.png"},
+{id:30,name:"Choridog x3",category:"hot dogs",price:60,desc:"Salchicha con longaniz Y queso suizo",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hot Dogs.png"},
+{id:31,name:"Hot dog de pollo especial",category:"hot dogs",price:30,desc:"Hot dog con tender de pollo con tocino y queso suizo",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hot Dogs.png"},
+{id:32,name:"Hot dog de pollo especial x3",category:"hot dogs",price:75,desc:"Hot dog con tender de pollo con tocino y queso suizo",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hot Dogs.png"},
+{id:33,name:"Hot dog hawaiano",category:"hot dogs",price:30,desc:"Salchicha con tocino, queso, piña y jamon",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hot Dogs.png"},
+{id:34,name:"Hot dog hawaiano x3",category:"hot dogs",price:75,desc:"Salchicha con tocino, queso, piña y jamon",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Hot Dogs.png"},
+//Snacks
+{id:35,name:"Papas a la francesa",category:"snacks",price:35,desc:"Papas a la francesa",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Papas a la francesa.jpg"},
+{id:36,name:"Aros de cebolla",category:"snacks",price:45,desc:"Aros de cebolla empanizados",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Aros de cebolla.jpg"},
+{id:37,name:"Papas gajo",category:"snacks",price:45,desc:"Papas gajo sazonadas",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Papas gajo.png"},
+{id:38,name:"Alitas",category:"snacks",price:80,desc:"Alitas de pollo fritas",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Alitas.png"},
+{id:39,name:"Costillas de cerdo",category:"snacks",price:100,desc:"Costilla de cerdo fritas acompañado de papas a la frances",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Costillas.png"},
+{id:40,name:"Tiras de pollo",category:"snacks",price:115,desc:"Tenders de pollo empanizados acompañados de papas a la francesa",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//.jpg"},
+{id:41,name:"Tiras de pollo con papas gajo",category:"snacks",price:125,desc:"Tenders de pollo empanizados acompañados de papas a la francesa",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Tiras.jpg"},
+{id:42,name:"Palomitas de pollo",category:"snacks",price:65,desc:"Palomitas de pollo acompañados de papas gajo",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Palomitas de pollo.png"},
+{id:43,name:"Papas familiares",category:"snacks",price:60,desc:"Orden de papas a la francesa grandes",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Papas a la francesa.jpg"},
+{id:44,name:"Nachos Rock Burger",category:"snacks",price:65,desc:"Nachos con queso amarillo, chiles y proteina a elegir",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//H.png"},
+{id:45,name:"Dedos de queso",category:"snacks",price:70,desc:"Dedos de queso mozzarella",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Dedos de queso.jpg"},
+{id:46,name:"Chiles rellenos",category:"snacks",price:70,desc:"Chiles jalapeños empanizados rellenos de queso",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Chiles.png"},
+{id:47,name:"Chiles rellenos envueltos en tocino",category:"hot dogs",price:90,desc:"Chiles jalapeños empanizados rellenos de queso envueltos en tocino",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//ChilesT.png"},
+{id:48,name:"Mega Nachos Rock Burger",category:"snacks",price:100,desc:"Nachos con queso amarilllo chiles, salchicha, longaniza y carne molida",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//MegaNachos.png"},
+//Postres
+{id:49,name:"Panque de elote",category:"postres",price:25,desc:"Panque de elote",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Panque de elote.jpg"},
+{id:50,name:"Duraznos",category:"postres",price:35,desc:"Duraznos en almibar con crema y lechera",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Duraznos.jpg"},
+{id:51,name:"Flan Napolitano",category:"postres",price:35,desc:"Flan Napolitano Casero",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Flan.jpg"},
+{id:52,name:"Fresas con crema",category:"postres",price:35,desc:"Fresas con crema y lechera",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Fresas con crema.jpg"},
+{id:53,name:"Muffin de chocolate",category:"postres",price:35,desc:"Muffin de chocolate",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Muffin.jpg"},
+{id:54,name:"Muffin de vainilla",category:"postres",price:35,desc:"Muffin de vainilla",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Muffin Vainilla.jpg"},
+{id:55,name:"Platanos fritos",category:"postres",price:35,desc:"Platanos fritos con crema y lechera",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Platanos Fritos.png"},
+{id:56,name:"Rol de Canela",category:"postres",price:35,desc:"Rol de canela",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Rol de canela.jpg"},
+{id:57,name:"Pastel Rock",category:"postres",price:50,desc:"Pastel de tres leches, tres leches con chocolate o Pay de limon",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Pastel.png"},
+{id:58,name:"Crepas",category:"postres",price:50,desc:"Crepa de nutella, fresa, mermelada, lechera, nuez, philadelphia, cajeta",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Crepa Nutella con Fresa.png"},
+
+//Bebidas
+{id:59,name:"Coca 600ml",category:"bebidas",price:35,desc:"Coca-Cola original 600ml",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Coca.jpg"},
+{id:60,name:"Coca Zero 600ml",category:"bebidas",price:35,desc:"Coca-Cola Zero 600ml",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Coca Zero.jpg"},
+{id:61,name:"Coca Light 600ml",category:"bebidas",price:35,desc:"Coca-Cola Light 600ml",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Coca Light.jpg"},
+{id:62,name:"Boing Lata",category:"bebidas",price:35,desc:"Boing de lata de mango, guayaba o manzana",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Boing.jpg"},
+{id:63,name:"Aguas Frescas 500ml",category:"bebidas",price:30,desc:"Agua fresca de 500ml de Limon, Tamarindo, Jamaica, Sandia, Horchata",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Aguas.jpg"},
+{id:64,name:"Malteadas",category:"bebidas",price:60,desc:"Malteada de vainilla, chocolate, Fresa, Oreo o Mazapan",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Malteada.png"},
+{id:65,name:"Frappes",category:"bebidas",price:60,desc:"Frappe de chocolate, nutella, vainilla, fresa, oreo, cafe, rompope, bailey's, taro",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Frappe.png"},
+//Cafe
+{id:66,name:"Americano",category:"cafe",price:35,desc:"Espresso doble con agua",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Americano.png"},
+{id:67,name:"Capuchino",category:"cafe",price:45,desc:"Espresso con leche y espuma de leche",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Capuchino.jpeg"},
+{id:68,name:"Latte",category:"cafe",price:50,desc:"Espresso con leche",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//Latte.png"},
+{id:69,name:"Latte frio",category:"cafe",price:50,desc:"Espresso con leche y hielos",img:"C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//LatteFrio.png"},
+
+];
+
+let cart=[];
+let activeCategory="todos";
+
+document.addEventListener("DOMContentLoaded",()=>{loadCart();renderMenu();renderCart();});
+function money(amount){return "$"+amount.toFixed(0);}
+function setCategory(category){activeCategory=category;document.querySelectorAll(".filter").forEach(button=>{button.classList.toggle("active",button.dataset.category===category);});renderMenu();}
+function renderMenu(){const grid=document.getElementById("menuGrid");const search=document.getElementById("searchInput").value.toLowerCase().trim();const filteredProducts=products.filter(product=>{const matchesCategory=activeCategory==="todos"||product.category===activeCategory;const matchesSearch=product.name.toLowerCase().includes(search)||product.desc.toLowerCase().includes(search);return matchesCategory&&matchesSearch;});if(filteredProducts.length===0){grid.innerHTML=`<p class="empty-cart">No encontré productos con esa búsqueda.</p>`;return;}grid.innerHTML=filteredProducts.map(product=>`<article class="product-card"><div class="product-img" style="background-image:url('${product.img}')"></div><div class="product-body"><h3>${product.name}</h3><p>${product.desc}</p><div class="product-bottom"><span class="price">${money(product.price)}</span><button class="add-btn" onclick="addToCart(${product.id})">Agregar</button></div></div></article>`).join("");}
+//function addToCart(productId){const existingItem=cart.find(item=>item.id===productId);if(existingItem){existingItem.qty+=1;}else{const product=products.find(item=>item.id===productId);cart.push({...product,qty:1});}saveCart();renderCart();showToast("Producto agregado");}
+function addToCart(productId){
+
+    const product = products.find(item => item.id === productId);
+
+    let selectedOption = "";
+
+    // Si el producto tiene opciones
+    if(product.options){
+
+        const menu = product.options
+            .map((option, index) => `${index + 1}. ${option}`)
+            .join("\n");
+
+        const answer = prompt(
+            `Elige una opción para ${product.name}:\n\n${menu}`
+        );
+
+        const optionIndex = parseInt(answer) - 1;
+
+        if(optionIndex < 0 || optionIndex >= product.options.length){
+            alert("Opción no válida");
+            return;
+        }
+
+        selectedOption = product.options[optionIndex];
+    }
+
+    // Buscamos si ya existe el mismo producto con la misma opción
+    const existingItem = cart.find(item =>
+        item.id === productId &&
+        item.selectedOption === selectedOption
+    );
+
+    if(existingItem){
+        existingItem.qty += 1;
+    }else{
+        cart.push({
+            ...product,
+            selectedOption,
+            qty:1
+        });
+    }
+
+    saveCart();
+    renderCart();
+    showToast("Producto agregado");
+}
+function changeQty(productId,amount){const item=cart.find(product=>product.id===productId);if(!item)return;item.qty+=amount;if(item.qty<=0){cart=cart.filter(product=>product.id!==productId);}saveCart();renderCart();}
+function clearCart(){cart=[];saveCart();renderCart();}
+function calculateSubtotal(){return cart.reduce((sum,item)=>sum+item.price*item.qty,0);}
+function calculateTotals(){const subtotal=calculateSubtotal();const orderType=document.getElementById("orderType").value;const delivery=orderType==="domicilio"&&subtotal>0?DELIVERY_PRICE:0;const total=subtotal+delivery;const hasPromo=subtotal>=FREE_FRIES_MINIMUM;document.getElementById("subtotal").textContent=money(subtotal);document.getElementById("deliveryCost").textContent=money(delivery);document.getElementById("total").textContent=money(total);document.getElementById("promoLine").classList.toggle("hidden",!hasPromo);return{subtotal,delivery,total,hasPromo};}
+//function renderCart(){const container=document.getElementById("cartItems");if(cart.length===0){container.innerHTML=`<p class="empty-cart">Tu carrito está vacío. Agrega productos del menú.</p>`;}else{container.innerHTML=cart.map(item=>`<div class="cart-item"><div><strong>${item.name}${item.selectedOption ? " - " + item.selectedOption : ""}</strong><small>${money(item.price)} c/u</small></div><div class="qty"><button onclick="changeQty(${item.id}, -1)">−</button><strong>${item.qty}</strong><button onclick="changeQty(${item.id}, 1)">+</button></div><div class="item-total">${money(item.price*item.qty)}</div></div>`).join("");}const itemCount=cart.reduce((sum,item)=>sum+item.qty,0);document.getElementById("cartCount").textContent=itemCount;calculateTotals();}
+function renderCart(){
+  const container=document.getElementById("cartItems");
+
+  if(cart.length===0){
+    container.innerHTML=`<p class="empty-cart">Tu carrito está vacío. Agrega productos del menú.</p>`;
+  }else{
+    container.innerHTML=cart.map(item=>`
+      <div class="cart-item">
+        <div>
+          <strong>${item.name}${item.selectedOption ? " - " + item.selectedOption : ""}</strong>
+          <small>${money(item.price)} c/u</small>
+        </div>
+
+        <div class="qty">
+          <button onclick="changeQty(${item.id}, -1)">−</button>
+          <strong>${item.qty}</strong>
+          <button onclick="changeQty(${item.id}, 1)">+</button>
+        </div>
+
+        <div class="item-total">${money(item.price*item.qty)}</div>
+      </div>
+    `).join("");
+  }
+
+  const itemCount=cart.reduce((sum,item)=>sum+item.qty,0);
+  document.getElementById("cartCount").textContent=itemCount;
+  calculateTotals();
+}
+
+function sendWhatsApp(){if(cart.length===0){alert("Agrega productos al carrito antes de enviar tu pedido.");return;}const name=document.getElementById("customerName").value.trim();const orderType=document.getElementById("orderType").value;const address=document.getElementById("customerAddress").value.trim();const payment=document.getElementById("paymentMethod").value;const notes=document.getElementById("customerNotes").value.trim();if(!name){alert("Escribe tu nombre.");return;}if(orderType==="domicilio"&&!address){alert("Escribe tu dirección para el envío.");return;}const totals=calculateTotals();let message=`Hola Rock Burger, quiero hacer un pedido:%0A%0A`;cart.forEach(item=>{message+=`• ${item.qty} x ${item.name}${item.selectedOption ? " - " + item.selectedOption : ""} - ${money(item.price*item.qty)}%0A`;});message+=`%0ASubtotal: ${money(totals.subtotal)}`;message+=`%0AEnvío: ${money(totals.delivery)}`;message+=`%0ATotal aprox: ${money(totals.total)}`;if(totals.hasPromo){message+=`%0APromo: Papas gratis por compra mayor a $200`;}message+=`%0A%0ANombre: ${encodeURIComponent(name)}`;message+=`%0AEntrega: ${orderType==="domicilio"?"A domicilio":"Paso a recoger"}`;message+=`%0ADirección: ${encodeURIComponent(address||"Paso a recoger")}`;message+=`%0APago: ${encodeURIComponent(payment)}`;message+=`%0ANotas: ${encodeURIComponent(notes||"Sin notas")}`;window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${message}`,"_blank");}
+
+
+function saveCart(){localStorage.setItem("rockBurgerCart",JSON.stringify(cart));}
+function loadCart(){const savedCart=localStorage.getItem("rockBurgerCart");if(savedCart){cart=JSON.parse(savedCart);}}
+function showToast(text){const toast=document.getElementById("toast");toast.textContent=text;toast.classList.add("show");setTimeout(()=>{toast.classList.remove("show");},1600);}

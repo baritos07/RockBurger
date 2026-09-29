@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rock Burger | Pedidos a domicilio</title>
+  <meta name="description" content="Pide hamburguesas, alitas, snacks y combos de Rock Burger directo por WhatsApp.">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a href="#" class="brand">
+      <span class="brand-icon">
+         <img src="C://Users//pc//Desktop//Roberto//Nueva carpeta//Nueva Pagina Rock//Imagenes//logoRock.png" alt="logoRock" class="icon-img" width="60px" height="60px">
+      </span>
+      <span><strong>Rock Burger</strong><small>Pedidos directos</small></span>
+    </a>
+    <nav class="nav">
+      <a href="#menu">Menú</a>
+      <a href="#promos">Promos</a>
+      <a href="#carrito" class="cart-link">🛒 <span id="cartCount">0</span></a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <p class="badge">🍟 Papas gratis en compras mayores a $200</p>
+      <h1>Hamburguesas con actitud rockera</h1>
+      <p class="hero-text">Arma tu pedido, agrega notas y envíalo directo por WhatsApp.</p>
+      <div class="hero-actions">
+        <a href="#menu" class="btn btn-primary">Ordenar ahora</a>
+        <a href="https://wa.me/525569082086" target="_blank" class="btn btn-secondary">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="business-info">
+      <article><span>📍</span><div><strong>Zona</strong><p>Colinas del Lago, Cuautitlán Izcalli</p></div></article>
+      <article><span>🕐</span><div><strong>Horario</strong><p>12:00 p.m. - 10:00 p.m.</p></div></article>
+      <article><span>📱</span><div><strong>Pedidos</strong><p>55 6908 2086</p></div></article>
+    </section>
+
+    <section id="promos" class="promo-banner">
+      <div><h2>Promoción activa</h2><p>En compras mayores a <strong>$200</strong>, tus papas van gratis.</p></div>
+      <span>🔥</span>
+    </section>
+
+    <section id="menu" class="section">
+      <div class="section-head">
+        <div><p class="eyebrow">Menú Rock Burger</p><h2>Elige tus favoritos</h2></div>
+        <div class="search-box"><input id="searchInput" type="text" placeholder="Buscar producto..." oninput="renderMenu()" /></div>
+      </div>
+
+      <div class="filters">
+        <button class="filter active" data-category="todos" onclick="setCategory('todos')">Todos</button>
+        <button class="filter" data-category="hamburguesas" onclick="setCategory('hamburguesas')">Hamburguesas</button>
+        <button class="filter" data-category="hot dogs" onclick="setCategory('hot dogs')">Hot Dogs</button>
+        <button class="filter" data-category="snacks" onclick="setCategory('snacks')">Snacks</button>
+        <button class="filter" data-category="combos" onclick="setCategory('combos')">Combos</button>
+        <button class="filter" data-category="bebidas" onclick="setCategory('bebidas')">Bebidas</button>
+      </div>
+
+      <div id="menuGrid" class="menu-grid"></div>
+    </section>
+
+    <section id="carrito" class="section cart-layout">
+      <div class="cart-panel">
+        <div class="section-head">
+          <div><p class="eyebrow">Tu orden</p><h2>Carrito</h2></div>
+          <button class="text-btn" onclick="clearCart()">Vaciar</button>
+        </div>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="summary">
+          <div><span>Subtotal</span><strong id="subtotal">$0</strong></div>
+          <div><span>Envío</span><strong id="deliveryCost">$0</strong></div>
+          <div id="promoLine" class="promo-line hidden"><span>Promo</span><strong>Papas gratis</strong></div>
+          <div class="summary-total"><span>Total aprox.</span><strong id="total">$0</strong></div>
+        </div>
+      </div>
+
+      <div class="checkout-panel">
+        <p class="eyebrow">Datos del cliente</p>
+        <h2>Enviar pedido</h2>
+        <label>Nombre<input id="customerName" type="text" placeholder="Ej. Roberto" /></label>
+        <label>Entrega<select id="orderType" onchange="calculateTotals()"><option value="domicilio">A domicilio</option><option value="recoger">Paso a recoger</option></select></label>
+        <label>Dirección<input id="customerAddress" type="text" placeholder="Calle, número, colonia y referencias" /></label>
+        <label>Forma de pago<select id="paymentMethod"><option value="Efectivo">Efectivo</option><option value="Transferencia">Transferencia</option><option value="Tarjeta al recibir">Tarjeta al recibir</option></select></label>
+        <label>Notas<textarea id="customerNotes" placeholder="Ej. sin cebolla, salsa aparte, pago con $500..."></textarea></label>
+        <button class="btn btn-whatsapp" onclick="sendWhatsApp()">Enviar pedido por WhatsApp</button>
+        <p class="small-note">El total es aproximado. Rock Burger confirmará disponibilidad, envío y tiempo de entrega por WhatsApp.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast">Producto agregado</div>
+  <footer class="footer"><strong>Rock Burger</strong><p>Hamburguesas · Alitas · Snacks . Postres</p></footer>
+  <script src="app.js"></script>
+</body>
+</html>
