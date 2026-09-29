@@ -69,7 +69,7 @@ const products=[
 {id:60,name:"Hot Cakes",category:"postres",price:60,desc:"Hot Cakes 3 Pzs",img:"Imagenes/Hot Cakes.png"},
 
 //Bebidas
-{id:61,name:"Coca 600ml",category:"bebidas",price:35,desc:"Coca-Cola original 600ml",img:"Imagenes/Coca.jpg"},
+{id:61,name:"Coca 600ml",category:"bebidas",price:35,desc:"Coca-Cola original 600ml",img:"Imagenes/coca.jpg"},
 {id:62,name:"Coca Zero 600ml",category:"bebidas",price:35,desc:"Coca-Cola Zero 600ml",img:"Imagenes/Coca Zero.jpg"},
 {id:63,name:"Coca Light 600ml",category:"bebidas",price:35,desc:"Coca-Cola Light 600ml",img:"Imagenes/Coca Light.jpg"},
 {id:64,name:"Boing Lata",category:"bebidas",price:35,desc:"Boing de lata de mango, guayaba o manzana",img:"Imagenes/Boing.jpg"},
