@@ -50,7 +50,7 @@ const products=[
 {id:42,name:"Palomitas de pollo",category:"snacks",price:65,desc:"Palomitas de pollo acompañados de papas gajo",img:"Imagenes/Palomitas de pollo.webp"},
 {id:43,name:"Papas familiares",category:"snacks",price:60,desc:"Orden de papas a la francesa grandes",img:"Imagenes/Papas a la francesa.webp"},
 {id:44,name:"Nachos Rock Burger",category:"snacks",price:65,desc:"Nachos con queso amarillo, chiles y proteina a elegir",img:"Imagenes/H.webp"},
-{id:45,name:"Dedos de queso",category:"snacks",price:70,desc:"Dedos de queso mozzarella",img:"Imagenes/Dedos de queso.webp"},
+{id:45,name:"Dedos de queso",category:"snacks",price:70,desc:"Dedos de queso mozzarella",img:"Imagenes/Dedos de Queso.webp"},
 {id:46,name:"Chiles rellenos",category:"snacks",price:70,desc:"Chiles jalapeños empanizados rellenos de queso",img:"Imagenes/Chiles.webp"},
 {id:47,name:"Chiles rellenos envueltos en tocino",category:"hot dogs",price:90,desc:"Chiles jalapeños empanizados rellenos de queso envueltos en tocino",img:"Imagenes/ChilesT.webp"},
 {id:48,name:"Mega Nachos Rock Burger",category:"snacks",price:100,desc:"Nachos con queso amarilllo chiles, salchicha, longaniza y carne molida",img:"Imagenes/MegaNachos.webp"},
