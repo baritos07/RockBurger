@@ -86,7 +86,28 @@
         <h2>Enviar pedido</h2>
         <label>Nombre<input id="customerName" type="text" placeholder="Ej. Roberto" /></label>
         <label>Entrega<select id="orderType" onchange="calculateTotals()"><option value="domicilio">A domicilio</option><option value="recoger">Paso a recoger</option></select></label>
-        <label>Dirección<input id="customerAddress" type="text" placeholder="Calle, número, colonia y referencias" /></label>
+        <div id="deliveryAddressFields">
+          <div class="address-grid">
+            <label>Calle<input id="customerStreet" type="text" placeholder="Ej. Av. de los Lagos" /></label>
+            <label>Número<input id="customerNumber" type="text" placeholder="Ej. 123" /></label>
+          </div>
+          <label>Colonia
+            <select id="customerNeighborhood" onchange="calculateTotals()">
+              <option value="">Selecciona tu colonia</option>
+              <option value="Colinas del Lago">Colinas del Lago</option>
+              <option value="Ensueños">Ensueños</option>
+              <option value="Atlanta">Atlanta</option>
+              <option value="Cumbria">Cumbria</option>
+              <option value="Santa Maria las Torres">Santa Maria las Torres</option>
+              <option value="Lago de Guadalupe">Lago de Guadalupe</option>
+              <option value="Santa Rosa de Lima">Santa Rosa de Lima</option>
+              <option value="Bosques de Morelos">Bosques de Morelos</option>
+              <option value="Jimenez Cantu">Jimenez Cantu</option>
+              <option value="Sittia">Sittia</option>
+            </select>
+          </label>
+          <label>Referencias<input id="customerReference" type="text" placeholder="Ej. portón negro, frente al parque" /></label>
+        </div>
         <label>Forma de pago<select id="paymentMethod"><option value="Efectivo">Efectivo</option><option value="Transferencia">Transferencia</option></select></label>
         <label>Notas<textarea id="customerNotes" placeholder="Ej. sin cebolla, salsa aparte, pago con $500..."></textarea></label>
         <button class="btn btn-whatsapp" onclick="sendWhatsApp()">Enviar pedido por WhatsApp</button>
