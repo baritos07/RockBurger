@@ -3,6 +3,47 @@ const DELIVERY_PRICE=25;
 const FREE_FRIES_MINIMUM=200;
 
 const products=[
+//Combos
+{id:72,name:"Combo Breaker",category:"combos",price:100,desc:"Hamburguesa con papas y refresco. El precio cambia según tu elección.",img:"Imagenes/Hamburguesa Tropical.webp",
+  comboOptions:{
+    burgers:[
+      {name:"Sencilla",extra:0},
+      {name:"Vegetariana",extra:0},
+      {name:"Hawaiana",extra:15},
+      {name:"Pollo",extra:15}
+      {name:"BBQ",extra:15},
+      {name:"Suiza",extra:15}
+      {name:"Caribeña",extra:15},
+      {name:"Tropical",extra:15}
+      {name:"Doriburger",extra:15},
+      {name:"Especial",extra:20},
+      {name:"Pollo Bufalo",extra:20},
+      {name:"Pollo Bufalo-Ranch",extra:20},
+      {name:"Pollo Jalapeño-Ranch",extra:20},
+      {name:"Burgeroni",extra:20},
+      {name:"Choriburger",extra:20},
+      {name:"Alamburger",extra:30},
+      {name:"Camarón",extra:35},
+      {name:"Cheeseburger",extra:45},
+      {name:"Suprema",extra:50},
+      
+      
+      // Agrega aquí el resto, por ejemplo: {name:"Suprema",extra:35}
+    ],
+    drinks:[
+      {name:"Refresco de Limón",extra:0},
+      {name:"Refresco de Naranja",extra:0},
+      {name:"Refresco de Toronja",extra:0},
+      {name:"Refresco de Manzana",extra:0},
+      {name:"Coca-Cola 600 ml",extra:15},
+      {name:"Coca-Cola Zero 600 ml",extra:15},
+      {name:"Coca-Cola Light 600 ml",extra:15},
+      {name:"Sangria 600 ml",extra:15}
+      // Agrega aquí más refrescos con su extra correspondiente
+    ]
+  }
+},
+  
 //Hamburguesas
 {id:1,name:"Hamburguesa Vegetariana",category:"hamburguesas",price:60,desc:"Platano, piña, champiñones, queso amarillo y queso suizo",img:"Imagenes/Hamburguesa Sencilla.webp"},
 {id:2,name:"Hamburguesa Sencilla",category:"hamburguesas",price:65,desc:"Queso amarillo.",img:"Imagenes/Hamburguesa Sencilla.webp"},
@@ -73,7 +114,26 @@ const products=[
 {id:62,name:"Coca Zero 600ml",category:"bebidas",price:35,desc:"Coca-Cola Zero 600ml",img:"Imagenes/Coca Zero.webp"},
 {id:63,name:"Coca Light 600ml",category:"bebidas",price:35,desc:"Coca-Cola Light 600ml",img:"Imagenes/Coca Light.webp"},
 {id:64,name:"Boing Lata",category:"bebidas",price:35,desc:"Boing de lata de mango, guayaba o manzana",img:"Imagenes/Boing.webp"},
-{id:65,name:"Aguas Frescas 500ml",category:"bebidas",price:30,desc:"Agua fresca de 500ml de Limon, Tamarindo, Jamaica, Sandia, Horchata",img:"Imagenes/Aguas.webp"},
+{id:65,name:"Aguas Frescas 500ml",category:"bebidas",price:30,desc:"Agua fresca de 500ml de Limon, Tamarindo, Jamaica, Sandia, Horchata",img:"Imagenes/Aguas.webp",
+ comboOptions:{
+   
+    drinks:[
+      {name:"Jamaica",extra:0},
+      {name:"Limón",extra:0},
+      {name:"Sandía",extra:0},
+      {name:"Papaya",extra:0},
+      {name:"Melón",extra:0},
+      {name:"Pepino",extra:0},
+      {name:"Horchata",extra:0},
+      {name:"Tamarindo",extra:0},
+      {name:"Fresa",extra:0},
+      {name:"Mango",extra:0},
+      {name:"Piña",extra:0},
+      
+      // Agrega aquí más refrescos con su extra correspondiente
+    ]
+  }
+},
 {id:66,name:"Malteadas",category:"bebidas",price:60,desc:"Malteada de vainilla, chocolate, Fresa, Oreo o Mazapan",img:"Imagenes/Malteada.webp"},
 {id:67,name:"Frappes",category:"bebidas",price:60,desc:"Frappe de chocolate, nutella, vainilla, fresa, oreo, cafe, rompope, bailey's, taro",img:"Imagenes/Frappe.webp"},
 //Cafe
@@ -82,23 +142,8 @@ const products=[
 {id:70,name:"Latte",category:"cafe",price:50,desc:"Espresso con leche",img:"Imagenes/Latte.webp"},
 {id:71,name:"Latte frio",category:"cafe",price:50,desc:"Espresso con leche y hielos",img:"Imagenes/LatteFrio.webp"},
 
-//Combos
-{id:72,name:"Combo Breaker",category:"combos",price:100,desc:"Hamburguesa con papas y refresco. El precio cambia según tu elección.",img:"Imagenes/Hamburguesa Tropical.webp",
-  comboOptions:{
-    burgers:[
-      {name:"Sencilla",extra:0},
-      {name:"Hawaiana",extra:15},
-      {name:"Especial",extra:20}
-      // Agrega aquí el resto, por ejemplo: {name:"Suprema",extra:35}
-    ],
-    drinks:[
-      {name:"Refresco de sabor",extra:0},
-      {name:"Coca-Cola 600 ml",extra:10},
-      {name:"Coca-Cola Zero 600 ml",extra:10}
-      // Agrega aquí más refrescos con su extra correspondiente
-    ]
-  }
-},
+
+
 
 ];
 
@@ -211,6 +256,17 @@ function addToCart(productId){
     if(!option)return;
     selectedOption=option.name;
   }
+
+  if(product.productoOptions){
+    openComboModal(product);
+    return;
+  }else if(product.options){
+    const options=product.options.map(name=>({name,extra:0}));
+    const option=chooseOption(`Elige una opción para ${product.name}`,options);
+    if(!option)return;
+    selectedOption=option.name;
+  }
+
 
   const cartKey=[product.id,selectedOption,selectedBurger,selectedDrink,unitPrice].join("|");
   const existingItem=cart.find(item=>item.cartKey===cartKey);
