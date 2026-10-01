@@ -13,6 +13,7 @@ html{scroll-behavior:smooth}body{font-family:Arial,Helvetica,sans-serif;backgrou
   .menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.product-card{border-radius:13px;box-shadow:none}.product-img{height:105px}.product-body{padding:9px}.product-body h3{font-size:14px;line-height:1.12;margin-bottom:5px}.product-body p{font-size:11px;line-height:1.25;min-height:42px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.product-bottom{gap:5px;margin-top:8px;align-items:stretch;flex-direction:column}.price{font-size:17px}.add-btn{width:100%;padding:8px 5px;border-radius:8px;font-size:12px}
   .cart-item{grid-template-columns:1fr auto;padding:10px}.item-total{grid-column:2}.cart-panel,.checkout-panel{padding:14px;border-radius:16px}
 }
+
 @media(max-width:360px){.product-img{height:92px}.product-body h3{font-size:13px}.product-body p{font-size:10.5px}.price{font-size:16px}}
 
 /* Selector visual para Combo Breaker */
