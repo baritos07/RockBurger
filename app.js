@@ -1,5 +1,5 @@
-const WHATSAPP_PHONE="525510118662";
-const DELIVERY_PRICE=0;
+const WHATSAPP_PHONE="525569082086";
+const DELIVERY_PRICE=25;
 const FREE_FRIES_MINIMUM=200;
 
 const products=[
@@ -50,7 +50,7 @@ const products=[
 {id:42,name:"Palomitas de pollo",category:"snacks",price:65,desc:"Palomitas de pollo acompañados de papas gajo",img:"Imagenes/Palomitas de pollo.webp"},
 {id:43,name:"Papas familiares",category:"snacks",price:60,desc:"Orden de papas a la francesa grandes",img:"Imagenes/Papas a la francesa.webp"},
 {id:44,name:"Nachos Rock Burger",category:"snacks",price:65,desc:"Nachos con queso amarillo, chiles y proteina a elegir",img:"Imagenes/H.webp"},
-{id:45,name:"Dedos de queso",category:"snacks",price:70,desc:"Dedos de queso mozzarella",img:"Imagenes/Dedos de Queso.webp"},
+{id:45,name:"Dedos de queso",category:"snacks",price:70,desc:"Dedos de queso mozzarella",img:"Imagenes/Dedos de queso.webp"},
 {id:46,name:"Chiles rellenos",category:"snacks",price:70,desc:"Chiles jalapeños empanizados rellenos de queso",img:"Imagenes/Chiles.webp"},
 {id:47,name:"Chiles rellenos envueltos en tocino",category:"hot dogs",price:90,desc:"Chiles jalapeños empanizados rellenos de queso envueltos en tocino",img:"Imagenes/ChilesT.webp"},
 {id:48,name:"Mega Nachos Rock Burger",category:"snacks",price:100,desc:"Nachos con queso amarilllo chiles, salchicha, longaniza y carne molida",img:"Imagenes/MegaNachos.webp"},
@@ -83,7 +83,22 @@ const products=[
 {id:71,name:"Latte frio",category:"cafe",price:50,desc:"Espresso con leche y hielos",img:"Imagenes/LatteFrio.webp"},
 
 //Combos
-{id:72,name:"Combo Breaker",category:"combos",price:100,desc:"Hamburguesa con papas y refresco",img:"Imagenes/Hamburguesa Tropical.webp",options:["Sencilla","Hawaiana","Especial","Suprema","Cheeseburger","Tropical","BBQ","Pollo"]},
+{id:72,name:"Combo Breaker",category:"combos",price:100,desc:"Hamburguesa con papas y refresco. El precio cambia según tu elección.",img:"Imagenes/Hamburguesa Tropical.webp",
+  comboOptions:{
+    burgers:[
+      {name:"Sencilla",extra:0},
+      {name:"Hawaiana",extra:15},
+      {name:"Especial",extra:20}
+      // Agrega aquí el resto, por ejemplo: {name:"Suprema",extra:35}
+    ],
+    drinks:[
+      {name:"Refresco de sabor",extra:0},
+      {name:"Coca-Cola 600 ml",extra:10},
+      {name:"Coca-Cola Zero 600 ml",extra:10}
+      // Agrega aquí más refrescos con su extra correspondiente
+    ]
+  }
+},
 
 ];
 
@@ -93,92 +108,169 @@ let activeCategory="todos";
 document.addEventListener("DOMContentLoaded",()=>{loadCart();renderMenu();renderCart();});
 function money(amount){return "$"+amount.toFixed(0);}
 function setCategory(category){activeCategory=category;document.querySelectorAll(".filter").forEach(button=>{button.classList.toggle("active",button.dataset.category===category);});renderMenu();}
-function renderMenu(){const grid=document.getElementById("menuGrid");const search=document.getElementById("searchInput").value.toLowerCase().trim();const filteredProducts=products.filter(product=>{const matchesCategory=activeCategory==="todos"||product.category===activeCategory;const matchesSearch=product.name.toLowerCase().includes(search)||product.desc.toLowerCase().includes(search);return matchesCategory&&matchesSearch;});if(filteredProducts.length===0){grid.innerHTML=`<p class="empty-cart">No encontré productos con esa búsqueda.</p>`;return;}grid.innerHTML=filteredProducts.map(product=>`<article class="product-card"><div class="product-img" style="background-image:url('${product.img}')"></div><div class="product-body"><h3>${product.name}</h3><p>${product.desc}</p><div class="product-bottom"><span class="price">${money(product.price)}</span><button class="add-btn" onclick="addToCart(${product.id})">Agregar</button></div></div></article>`).join("");}
-//function addToCart(productId){const existingItem=cart.find(item=>item.id===productId);if(existingItem){existingItem.qty+=1;}else{const product=products.find(item=>item.id===productId);cart.push({...product,qty:1});}saveCart();renderCart();showToast("Producto agregado");}
-function addToCart(productId){
+function renderMenu(){
+  const grid=document.getElementById("menuGrid");
+  const search=document.getElementById("searchInput").value.toLowerCase().trim();
+  const filteredProducts=products.filter(product=>{
+    const matchesCategory=activeCategory==="todos"||product.category===activeCategory;
+    const matchesSearch=product.name.toLowerCase().includes(search)||product.desc.toLowerCase().includes(search);
+    return matchesCategory&&matchesSearch;
+  });
 
-    const product = products.find(item => item.id === productId);
+  if(filteredProducts.length===0){
+    grid.innerHTML=`<p class="empty-cart">No encontré productos con esa búsqueda.</p>`;
+    return;
+  }
 
-    let selectedOption = "";
-
-    // Si el producto tiene opciones
-    if(product.options){
-
-        const menu = product.options
-            .map((option, index) => `${index + 1}. ${option}`)
-            .join("\n");
-
-        const answer = prompt(
-            `Elige una opción para ${product.name}:\n\n${menu}`
-        );
-
-        const optionIndex = parseInt(answer) - 1;
-
-        if(optionIndex < 0 || optionIndex >= product.options.length){
-            alert("Opción no válida");
-            return;
-        }
-
-        selectedOption = product.options[optionIndex];
-    }
-
-    // Buscamos si ya existe el mismo producto con la misma opción
-    const existingItem = cart.find(item =>
-        item.id === productId &&
-        item.selectedOption === selectedOption
-    );
-
-    if(existingItem){
-        existingItem.qty += 1;
-    }else{
-        cart.push({
-            ...product,
-            selectedOption,
-            qty:1
-        });
-    }
-
-    saveCart();
-    renderCart();
-    showToast("Producto agregado");
+  grid.innerHTML=filteredProducts.map(product=>`
+    <article class="product-card">
+      <img class="product-img" src="${product.img}" alt="${product.name}" loading="lazy" decoding="async">
+      <div class="product-body">
+        <h3>${product.name}</h3>
+        <p>${product.desc}</p>
+        <div class="product-bottom">
+          <span class="price">${product.comboOptions ? "Desde " : ""}${money(product.price)}</span>
+          <button class="add-btn" onclick="addToCart(${product.id})">Agregar</button>
+        </div>
+      </div>
+    </article>`).join("");
 }
-function changeQty(productId,amount){const item=cart.find(product=>product.id===productId);if(!item)return;item.qty+=amount;if(item.qty<=0){cart=cart.filter(product=>product.id!==productId);}saveCart();renderCart();}
+
+function chooseOption(title, options){
+  const menu=options.map((option,index)=>`${index+1}. ${option.name}${option.extra ? ` (+${money(option.extra)})` : ""}`).join("\n");
+  const answer=prompt(`${title}:\n\n${menu}\n\nEscribe el número de tu elección:`);
+  if(answer===null)return null;
+  const optionIndex=parseInt(answer,10)-1;
+  if(Number.isNaN(optionIndex)||optionIndex<0||optionIndex>=options.length){
+    alert("Opción no válida");
+    return null;
+  }
+  return options[optionIndex];
+}
+
+function addToCart(productId){
+  const product=products.find(item=>item.id===productId);
+  if(!product)return;
+
+  let selectedOption="";
+  let selectedBurger="";
+  let selectedDrink="";
+  let unitPrice=product.price;
+
+  if(product.comboOptions){
+    const burger=chooseOption(`Elige la hamburguesa para ${product.name}`,product.comboOptions.burgers);
+    if(!burger)return;
+    const drink=chooseOption("Ahora elige tu refresco",product.comboOptions.drinks);
+    if(!drink)return;
+
+    selectedBurger=burger.name;
+    selectedDrink=drink.name;
+    unitPrice=product.price+burger.extra+drink.extra;
+  }else if(product.options){
+    const options=product.options.map(name=>({name,extra:0}));
+    const option=chooseOption(`Elige una opción para ${product.name}`,options);
+    if(!option)return;
+    selectedOption=option.name;
+  }
+
+  const cartKey=[product.id,selectedOption,selectedBurger,selectedDrink,unitPrice].join("|");
+  const existingItem=cart.find(item=>item.cartKey===cartKey);
+
+  if(existingItem){
+    existingItem.qty+=1;
+  }else{
+    cart.push({...product,price:unitPrice,basePrice:product.price,selectedOption,selectedBurger,selectedDrink,cartKey,qty:1});
+  }
+
+  saveCart();
+  renderCart();
+  showToast("Producto agregado");
+}
+
+function changeQty(cartKey,amount){
+  const item=cart.find(product=>product.cartKey===cartKey);
+  if(!item)return;
+  item.qty+=amount;
+  if(item.qty<=0)cart=cart.filter(product=>product.cartKey!==cartKey);
+  saveCart();
+  renderCart();
+}
+
 function clearCart(){cart=[];saveCart();renderCart();}
 function calculateSubtotal(){return cart.reduce((sum,item)=>sum+item.price*item.qty,0);}
 function calculateTotals(){const subtotal=calculateSubtotal();const orderType=document.getElementById("orderType").value;const delivery=orderType==="domicilio"&&subtotal>0?DELIVERY_PRICE:0;const total=subtotal+delivery;const hasPromo=subtotal>=FREE_FRIES_MINIMUM;document.getElementById("subtotal").textContent=money(subtotal);document.getElementById("deliveryCost").textContent=money(delivery);document.getElementById("total").textContent=money(total);document.getElementById("promoLine").classList.toggle("hidden",!hasPromo);return{subtotal,delivery,total,hasPromo};}
-//function renderCart(){const container=document.getElementById("cartItems");if(cart.length===0){container.innerHTML=`<p class="empty-cart">Tu carrito está vacío. Agrega productos del menú.</p>`;}else{container.innerHTML=cart.map(item=>`<div class="cart-item"><div><strong>${item.name}${item.selectedOption ? " - " + item.selectedOption : ""}</strong><small>${money(item.price)} c/u</small></div><div class="qty"><button onclick="changeQty(${item.id}, -1)">−</button><strong>${item.qty}</strong><button onclick="changeQty(${item.id}, 1)">+</button></div><div class="item-total">${money(item.price*item.qty)}</div></div>`).join("");}const itemCount=cart.reduce((sum,item)=>sum+item.qty,0);document.getElementById("cartCount").textContent=itemCount;calculateTotals();}
+
+function itemDetails(item){
+  const details=[];
+  if(item.selectedOption)details.push(item.selectedOption);
+  if(item.selectedBurger)details.push(`Hamburguesa: ${item.selectedBurger}`);
+  if(item.selectedDrink)details.push(`Refresco: ${item.selectedDrink}`);
+  return details.join(" · ");
+}
+
 function renderCart(){
   const container=document.getElementById("cartItems");
-
   if(cart.length===0){
     container.innerHTML=`<p class="empty-cart">Tu carrito está vacío. Agrega productos del menú.</p>`;
   }else{
     container.innerHTML=cart.map(item=>`
       <div class="cart-item">
         <div>
-          <strong>${item.name}${item.selectedOption ? " - " + item.selectedOption : ""}</strong>
+          <strong>${item.name}</strong>
+          ${itemDetails(item)?`<small>${itemDetails(item)}</small>`:""}
           <small>${money(item.price)} c/u</small>
         </div>
-
         <div class="qty">
-          <button onclick="changeQty(${item.id}, -1)">−</button>
+          <button onclick='changeQty(${JSON.stringify(item.cartKey)},-1)'>−</button>
           <strong>${item.qty}</strong>
-          <button onclick="changeQty(${item.id}, 1)">+</button>
+          <button onclick='changeQty(${JSON.stringify(item.cartKey)},1)'>+</button>
         </div>
-
         <div class="item-total">${money(item.price*item.qty)}</div>
-      </div>
-    `).join("");
+      </div>`).join("");
   }
-
   const itemCount=cart.reduce((sum,item)=>sum+item.qty,0);
   document.getElementById("cartCount").textContent=itemCount;
   calculateTotals();
 }
 
-function sendWhatsApp(){if(cart.length===0){alert("Agrega productos al carrito antes de enviar tu pedido.");return;}const name=document.getElementById("customerName").value.trim();const orderType=document.getElementById("orderType").value;const address=document.getElementById("customerAddress").value.trim();const payment=document.getElementById("paymentMethod").value;const notes=document.getElementById("customerNotes").value.trim();if(!name){alert("Escribe tu nombre.");return;}if(orderType==="domicilio"&&!address){alert("Escribe tu dirección para el envío.");return;}const totals=calculateTotals();let message=`Hola Rock Burger, quiero hacer un pedido:%0A%0A`;cart.forEach(item=>{message+=`• ${item.qty} x ${item.name}${item.selectedOption ? " - " + item.selectedOption : ""} - ${money(item.price*item.qty)}%0A`;});message+=`%0ASubtotal: ${money(totals.subtotal)}`;message+=`%0AEnvío: ${money(totals.delivery)}`;message+=`%0ATotal aprox: ${money(totals.total)}`;if(totals.hasPromo){message+=`%0APromo: Papas gratis por compra mayor a $200`;}message+=`%0A%0ANombre: ${encodeURIComponent(name)}`;message+=`%0AEntrega: ${orderType==="domicilio"?"A domicilio":"Paso a recoger"}`;message+=`%0ADirección: ${encodeURIComponent(address||"Paso a recoger")}`;message+=`%0APago: ${encodeURIComponent(payment)}`;message+=`%0ANotas: ${encodeURIComponent(notes||"Sin notas")}`;window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${message}`,"_blank");}
+function sendWhatsApp(){
+  if(cart.length===0){alert("Agrega productos al carrito antes de enviar tu pedido.");return;}
+  const name=document.getElementById("customerName").value.trim();
+  const orderType=document.getElementById("orderType").value;
+  const address=document.getElementById("customerAddress").value.trim();
+  const payment=document.getElementById("paymentMethod").value;
+  const notes=document.getElementById("customerNotes").value.trim();
+  if(!name){alert("Escribe tu nombre.");return;}
+  if(orderType==="domicilio"&&!address){alert("Escribe tu dirección para el envío.");return;}
 
+  const totals=calculateTotals();
+  let message=`Hola Rock Burger, quiero hacer un pedido:%0A%0A`;
+  cart.forEach(item=>{
+    const details=itemDetails(item);
+    message+=`• ${item.qty} x ${item.name}${details ? " - "+details : ""} - ${money(item.price*item.qty)}%0A`;
+  });
+  message+=`%0ASubtotal: ${money(totals.subtotal)}`;
+  message+=`%0AEnvío: ${money(totals.delivery)}`;
+  message+=`%0ATotal aprox: ${money(totals.total)}`;
+  if(totals.hasPromo)message+=`%0APromo: Papas gratis por compra mayor a $200`;
+  message+=`%0A%0ANombre: ${encodeURIComponent(name)}`;
+  message+=`%0AEntrega: ${orderType==="domicilio"?"A domicilio":"Paso a recoger"}`;
+  message+=`%0ADirección: ${encodeURIComponent(address||"Paso a recoger")}`;
+  message+=`%0APago: ${encodeURIComponent(payment)}`;
+  message+=`%0ANotas: ${encodeURIComponent(notes||"Sin notas")}`;
+  window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${message}`,"_blank");
+}
 
 function saveCart(){localStorage.setItem("rockBurgerCart",JSON.stringify(cart));}
-function loadCart(){const savedCart=localStorage.getItem("rockBurgerCart");if(savedCart){cart=JSON.parse(savedCart);}}
+function loadCart(){
+  const savedCart=localStorage.getItem("rockBurgerCart");
+  if(savedCart){
+    try{
+      cart=JSON.parse(savedCart).map(item=>({
+        ...item,
+        cartKey:item.cartKey||[item.id,item.selectedOption||"",item.selectedBurger||"",item.selectedDrink||"",item.price].join("|")
+      }));
+    }catch(error){cart=[];}
+  }
+}
 function showToast(text){const toast=document.getElementById("toast");toast.textContent=text;toast.classList.add("show");setTimeout(()=>{toast.classList.remove("show");},1600);}
