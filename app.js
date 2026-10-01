@@ -1,4 +1,4 @@
-const WHATSAPP_PHONE="525510118662";
+const WHATSAPP_PHONE="525569082086";
 const DELIVERY_PRICE=25;
 const FREE_FRIES_MINIMUM=200;
 
@@ -136,16 +136,61 @@ function renderMenu(){
     </article>`).join("");
 }
 
+function openComboModal(product){
+  const modal=document.getElementById("comboModal");
+  const burgerSelect=document.getElementById("comboBurger");
+  const drinkSelect=document.getElementById("comboDrink");
+  const priceEl=document.getElementById("comboPrice");
+  const titleEl=document.getElementById("comboTitle");
+
+  titleEl.textContent=product.name;
+  burgerSelect.innerHTML=product.comboOptions.burgers.map((o,i)=>
+    `<option value="${i}">${o.name}${o.extra ? ` (+${money(o.extra)})` : ""}</option>`
+  ).join("");
+  drinkSelect.innerHTML=product.comboOptions.drinks.map((o,i)=>
+    `<option value="${i}">${o.name}${o.extra ? ` (+${money(o.extra)})` : ""}</option>`
+  ).join("");
+
+  function updatePrice(){
+    const burger=product.comboOptions.burgers[Number(burgerSelect.value)];
+    const drink=product.comboOptions.drinks[Number(drinkSelect.value)];
+    priceEl.textContent=money(product.price+burger.extra+drink.extra);
+  }
+  burgerSelect.onchange=updatePrice;
+  drinkSelect.onchange=updatePrice;
+  document.getElementById("comboConfirm").onclick=()=>{
+    const burger=product.comboOptions.burgers[Number(burgerSelect.value)];
+    const drink=product.comboOptions.drinks[Number(drinkSelect.value)];
+    addConfiguredCombo(product,burger,drink);
+    closeComboModal();
+  };
+  updatePrice();
+  modal.classList.add("show");
+  document.body.classList.add("modal-open");
+}
+
+function closeComboModal(){
+  document.getElementById("comboModal").classList.remove("show");
+  document.body.classList.remove("modal-open");
+}
+
+function addConfiguredCombo(product,burger,drink){
+  const unitPrice=product.price+burger.extra+drink.extra;
+  const cartKey=[product.id,"",burger.name,drink.name,unitPrice].join("|");
+  const existingItem=cart.find(item=>item.cartKey===cartKey);
+  if(existingItem){existingItem.qty+=1;}
+  else{cart.push({...product,price:unitPrice,basePrice:product.price,selectedOption:"",selectedBurger:burger.name,selectedDrink:drink.name,cartKey,qty:1});}
+  saveCart();renderCart();showToast("Combo agregado");
+}
+
 function chooseOption(title, options){
-  const menu=options.map((option,index)=>`${index+1}. ${option.name}${option.extra ? ` (+${money(option.extra)})` : ""}`).join("\n");
+  const select=document.createElement("select");
+  // Las opciones simples existentes siguen usando prompt; Combo Breaker usa el selector visual.
+  const menu=options.map((option,index)=>`${index+1}. ${option.name}`).join("\n");
   const answer=prompt(`${title}:\n\n${menu}\n\nEscribe el número de tu elección:`);
   if(answer===null)return null;
   const optionIndex=parseInt(answer,10)-1;
-  if(Number.isNaN(optionIndex)||optionIndex<0||optionIndex>=options.length){
-    alert("Opción no válida");
-    return null;
-  }
-  return options[optionIndex];
+  return optionIndex>=0&&optionIndex<options.length ? options[optionIndex] : null;
 }
 
 function addToCart(productId){
@@ -158,14 +203,8 @@ function addToCart(productId){
   let unitPrice=product.price;
 
   if(product.comboOptions){
-    const burger=chooseOption(`Elige la hamburguesa para ${product.name}`,product.comboOptions.burgers);
-    if(!burger)return;
-    const drink=chooseOption("Ahora elige tu refresco",product.comboOptions.drinks);
-    if(!drink)return;
-
-    selectedBurger=burger.name;
-    selectedDrink=drink.name;
-    unitPrice=product.price+burger.extra+drink.extra;
+    openComboModal(product);
+    return;
   }else if(product.options){
     const options=product.options.map(name=>({name,extra:0}));
     const option=chooseOption(`Elige una opción para ${product.name}`,options);

@@ -29,7 +29,7 @@
       <p class="hero-text">Arma tu pedido, agrega notas y envíalo directo por WhatsApp.</p>
       <div class="hero-actions">
         <a href="#menu" class="btn btn-primary">Ordenar ahora</a>
-        <a href="https://wa.me/525510118662" target="_blank" class="btn btn-secondary">WhatsApp</a>
+        <a href="https://wa.me/525569082086" target="_blank" class="btn btn-secondary">WhatsApp</a>
       </div>
     </div>
   </section>
@@ -37,7 +37,7 @@
   <main>
     <section class="business-info">
       <article><span>📍</span><div><strong>Zona</strong><p>Colinas del Lago, Cuautitlán Izcalli</p></div></article>
-      <article><span>🕐</span><div><strong>Horario</strong><p>09:00 a.m. - 9:45 p.m.</p></div></article>
+      <article><span>🕐</span><div><strong>Horario</strong><p>12:00 p.m. - 10:00 p.m.</p></div></article>
       <article><span>📱</span><div><strong>Pedidos</strong><p>55 6908 2086</p></div></article>
     </section>
 
@@ -87,13 +87,25 @@
         <label>Nombre<input id="customerName" type="text" placeholder="Ej. Roberto" /></label>
         <label>Entrega<select id="orderType" onchange="calculateTotals()"><option value="domicilio">A domicilio</option><option value="recoger">Paso a recoger</option></select></label>
         <label>Dirección<input id="customerAddress" type="text" placeholder="Calle, número, colonia y referencias" /></label>
-        <label>Forma de pago<select id="paymentMethod"><option value="Efectivo">Efectivo</option><option value="Transferencia">Transferencia</option></select></label>
+        <label>Forma de pago<select id="paymentMethod"><option value="Efectivo">Efectivo</option><option value="Transferencia">Transferencia</option><option value="Tarjeta al recibir">Tarjeta al recibir</option></select></label>
         <label>Notas<textarea id="customerNotes" placeholder="Ej. sin cebolla, salsa aparte, pago con $500..."></textarea></label>
         <button class="btn btn-whatsapp" onclick="sendWhatsApp()">Enviar pedido por WhatsApp</button>
         <p class="small-note">El total es aproximado. Rock Burger confirmará disponibilidad, envío y tiempo de entrega por WhatsApp.</p>
       </div>
     </section>
   </main>
+
+  <div id="comboModal" class="combo-modal" onclick="if(event.target===this) closeComboModal()">
+    <div class="combo-dialog">
+      <button class="combo-close" type="button" onclick="closeComboModal()">×</button>
+      <p class="eyebrow">Arma tu combo</p>
+      <h2 id="comboTitle">Combo Breaker</h2>
+      <label>Hamburguesa<select id="comboBurger"></select></label>
+      <label>Refresco<select id="comboDrink"></select></label>
+      <div class="combo-total"><span>Precio del combo</span><strong id="comboPrice">$100</strong></div>
+      <button id="comboConfirm" class="btn combo-confirm" type="button">Agregar al carrito</button>
+    </div>
+  </div>
 
   <div id="toast" class="toast">Producto agregado</div>
   <footer class="footer"><strong>Rock Burger</strong><p>Hamburguesas · Alitas · Snacks . Postres</p></footer>
