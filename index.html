@@ -87,7 +87,7 @@
         <label>Nombre<input id="customerName" type="text" placeholder="Ej. Roberto" /></label>
         <label>Entrega<select id="orderType" onchange="calculateTotals()"><option value="domicilio">A domicilio</option><option value="recoger">Paso a recoger</option></select></label>
         <label>Dirección<input id="customerAddress" type="text" placeholder="Calle, número, colonia y referencias" /></label>
-        <label>Forma de pago<select id="paymentMethod"><option value="Efectivo">Efectivo</option><option value="Transferencia">Transferencia</option><option value="Tarjeta al recibir">Tarjeta al recibir</option></select></label>
+        <label>Forma de pago<select id="paymentMethod"><option value="Efectivo">Efectivo</option><option value="Transferencia">Transferencia</option></select></label>
         <label>Notas<textarea id="customerNotes" placeholder="Ej. sin cebolla, salsa aparte, pago con $500..."></textarea></label>
         <button class="btn btn-whatsapp" onclick="sendWhatsApp()">Enviar pedido por WhatsApp</button>
         <p class="small-note">El total es aproximado. Rock Burger confirmará disponibilidad, envío y tiempo de entrega por WhatsApp.</p>
