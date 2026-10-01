@@ -242,7 +242,7 @@ const products=[
 {id:61,name:"Coca 600ml",category:"bebidas",price:40,desc:"Coca-Cola original 600ml",img:"Imagenes/coca.webp"},
 {id:62,name:"Coca Zero 600ml",category:"bebidas",price:40,desc:"Coca-Cola Zero 600ml",img:"Imagenes/Coca Zero.webp"},
 {id:63,name:"Coca Light 600ml",category:"bebidas",price:40,desc:"Coca-Cola Light 600ml",img:"Imagenes/Coca Light.webp"},
-{id:64,name:"Sangria Señorial 600ml",category:"bebidas",price:40,desc:"Sangria Señorial 600ml",img:"Imagenes/SAngria.jpg"},
+{id:64,name:"Sangria Señorial 600ml",category:"bebidas",price:40,desc:"Sangria Señorial 600ml",img:"Imagenes/Sangria.jpg"},
 {id:65,name:"Boing Lata",category:"bebidas",price:35,desc:"Boing de lata de mango, guayaba o manzana",img:"Imagenes/Boing.webp",
   selections:[
     {label:"Sabor",options:[
