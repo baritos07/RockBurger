@@ -1,5 +1,17 @@
-const WHATSAPP_PHONE="525510118662";
-const DELIVERY_PRICE=25;
+const WHATSAPP_PHONE="525569082086";
+// Costo de envío por colonia. Agrega nuevas colonias aquí.
+const DELIVERY_FEES={
+  "Colinas del Lago":0,
+  "Ensueños":35,
+  "Atlanta":25,
+  "Cumbria":25,
+  "Santa Maria las Torres":25,
+  "Lago de Guadalupe":25,
+  "Santa Rosa de Lima":30,
+  "Bosques de Morelos":25,
+  "Jimenez Cantu":25,
+  "Sittia":25
+};
 const FREE_FRIES_MINIMUM=200;
 
 const products=[
@@ -242,7 +254,7 @@ const products=[
 {id:61,name:"Coca 600ml",category:"bebidas",price:40,desc:"Coca-Cola original 600ml",img:"Imagenes/coca.webp"},
 {id:62,name:"Coca Zero 600ml",category:"bebidas",price:40,desc:"Coca-Cola Zero 600ml",img:"Imagenes/Coca Zero.webp"},
 {id:63,name:"Coca Light 600ml",category:"bebidas",price:40,desc:"Coca-Cola Light 600ml",img:"Imagenes/Coca Light.webp"},
-{id:64,name:"Sangria Señorial 600ml",category:"bebidas",price:40,desc:"Sangria Señorial 600ml",img:"Imagenes/Sangria.jpg"},
+{id:64,name:"Sangria Señorial 600ml",category:"bebidas",price:40,desc:"Sangria Señorial 600ml",img:"Imagenes/SAngria.jpg"},
 {id:65,name:"Boing Lata",category:"bebidas",price:35,desc:"Boing de lata de mango, guayaba o manzana",img:"Imagenes/Boing.webp",
   selections:[
     {label:"Sabor",options:[
@@ -502,7 +514,26 @@ function changeQty(cartKey,amount){
 
 function clearCart(){cart=[];saveCart();renderCart();}
 function calculateSubtotal(){return cart.reduce((sum,item)=>sum+item.price*item.qty,0);}
-function calculateTotals(){const subtotal=calculateSubtotal();const orderType=document.getElementById("orderType").value;const delivery=orderType==="domicilio"&&subtotal>0?DELIVERY_PRICE:0;const total=subtotal+delivery;const hasPromo=subtotal>=FREE_FRIES_MINIMUM;document.getElementById("subtotal").textContent=money(subtotal);document.getElementById("deliveryCost").textContent=money(delivery);document.getElementById("total").textContent=money(total);document.getElementById("promoLine").classList.toggle("hidden",!hasPromo);return{subtotal,delivery,total,hasPromo};}
+function calculateTotals(){
+  const subtotal=calculateSubtotal();
+  const orderType=document.getElementById("orderType").value;
+  const neighborhood=document.getElementById("customerNeighborhood")?.value||"";
+  const addressFields=document.getElementById("deliveryAddressFields");
+  if(addressFields)addressFields.classList.toggle("hidden",orderType!=="domicilio");
+
+  let delivery=0;
+  if(orderType==="domicilio"&&subtotal>0&&neighborhood){
+    delivery=DELIVERY_FEES[neighborhood]??0;
+  }
+  const total=subtotal+delivery;
+  const hasPromo=subtotal>=FREE_FRIES_MINIMUM;
+  document.getElementById("subtotal").textContent=money(subtotal);
+  const deliveryLabel=document.getElementById("deliveryCost");
+  deliveryLabel.textContent=orderType==="domicilio"&&neighborhood&&delivery===0&&subtotal>0?"GRATIS":money(delivery);
+  document.getElementById("total").textContent=money(total);
+  document.getElementById("promoLine").classList.toggle("hidden",!hasPromo);
+  return{subtotal,delivery,total,hasPromo,neighborhood};
+}
 
 function itemDetails(item){
   const details=[];
@@ -544,11 +575,16 @@ function sendWhatsApp(){
   if(cart.length===0){alert("Agrega productos al carrito antes de enviar tu pedido.");return;}
   const name=document.getElementById("customerName").value.trim();
   const orderType=document.getElementById("orderType").value;
-  const address=document.getElementById("customerAddress").value.trim();
+  const street=document.getElementById("customerStreet").value.trim();
+  const number=document.getElementById("customerNumber").value.trim();
+  const neighborhood=document.getElementById("customerNeighborhood").value;
+  const reference=document.getElementById("customerReference").value.trim();
   const payment=document.getElementById("paymentMethod").value;
   const notes=document.getElementById("customerNotes").value.trim();
   if(!name){alert("Escribe tu nombre.");return;}
-  if(orderType==="domicilio"&&!address){alert("Escribe tu dirección para el envío.");return;}
+  if(orderType==="domicilio"&&!street){alert("Escribe la calle para el envío.");return;}
+  if(orderType==="domicilio"&&!number){alert("Escribe el número de tu domicilio.");return;}
+  if(orderType==="domicilio"&&!neighborhood){alert("Selecciona tu colonia para calcular el envío.");return;}
 
   const totals=calculateTotals();
   let message=`Hola Rock Burger, quiero hacer un pedido:%0A%0A`;
@@ -562,7 +598,14 @@ function sendWhatsApp(){
   if(totals.hasPromo)message+=`%0APromo: Papas gratis por compra mayor a $200`;
   message+=`%0A%0ANombre: ${encodeURIComponent(name)}`;
   message+=`%0AEntrega: ${orderType==="domicilio"?"A domicilio":"Paso a recoger"}`;
-  message+=`%0ADirección: ${encodeURIComponent(address||"Paso a recoger")}`;
+  if(orderType==="domicilio"){
+    message+=`%0ACalle: ${encodeURIComponent(street)}`;
+    message+=`%0ANúmero: ${encodeURIComponent(number)}`;
+    message+=`%0AColonia: ${encodeURIComponent(neighborhood)}`;
+    message+=`%0AReferencias: ${encodeURIComponent(reference||"Sin referencias")}`;
+  }else{
+    message+=`%0ADirección: Paso a recoger`;
+  }
   message+=`%0APago: ${encodeURIComponent(payment)}`;
   message+=`%0ANotas: ${encodeURIComponent(notes||"Sin notas")}`;
   window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${message}`,"_blank");
