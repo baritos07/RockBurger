@@ -1,4 +1,4 @@
-const WHATSAPP_PHONE="525569082086";
+const WHATSAPP_PHONE="525510118662";
 // Costo de envío por colonia. Agrega nuevas colonias aquí.
 const DELIVERY_FEES={
   "Colinas del Lago":0,
